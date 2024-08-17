@@ -11,7 +11,7 @@ function Entries() {
 
   const fetchEntries = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/diary-entries');
+      const response = await axios.get('https://diarybackend-hmie.onrender.com/api/diary-entries');
       setEntries(response.data);
     } catch (error) {
       console.error('Error fetching entries:', error);
@@ -20,7 +20,7 @@ function Entries() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/diary-entries/${id}`);
+      await axios.delete(`https://diarybackend-hmie.onrender.com/api/diary-entries/${id}`);
       setEntries(entries.filter((entry) => entry.id !== id));
     } catch (error) {
       console.error('Error deleting entry:', error);
