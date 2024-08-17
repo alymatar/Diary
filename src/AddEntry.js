@@ -17,7 +17,7 @@ function AddEntry() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/diary-entries', newEntry);
+      await axios.post('https://diarybackend-hmie.onrender.com/api/diary-entries', newEntry);
       navigate('/');  // Redirect to the main page after adding the entry
     } catch (error) {
       console.error('Error creating entry:', error);
