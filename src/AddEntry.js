@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './App.css'
@@ -6,6 +6,7 @@ import './App.css'
 function AddEntry() {
   const [newEntry, setNewEntry] = useState({ title: '', content: '' });
   const navigate = useNavigate();
+  const textareaRef = useRef(null);
 
   const handleChange = (e) => {
     setNewEntry({
@@ -24,6 +25,13 @@ function AddEntry() {
     }
   };
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+    }
+  }, [newEntry.content]);
+
   return (
     <div>
       <h2>Add New Entry</h2>
@@ -36,10 +44,12 @@ function AddEntry() {
           onChange={handleChange}
         />
         <textarea
+          ref={textareaRef}
           name="content"
           placeholder="Content"
           value={newEntry.content}
           onChange={handleChange}
+          style={{ overflow: 'hidden', resize: 'none' }} 
         ></textarea>
         <button type="submit">Add Entry</button>
       </form>
