@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import './App.css'; // Ensure CSS is imported
@@ -7,10 +7,18 @@ function EditEntry() {
   const { id } = useParams(); // Get the ID from the URL
   const [entry, setEntry] = useState({ title: '', content: '', created_at: '' });
   const navigate = useNavigate();
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     fetchEntry();
   }, []);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+    }
+  }, [entry.content]);
 
   const fetchEntry = async () => {
     try {
@@ -56,10 +64,12 @@ function EditEntry() {
           onChange={handleChange}
         />
         <textarea
+          ref={textareaRef}
           name="content"
           placeholder="Content"
           value={entry.content}
           onChange={handleChange}
+          style={{ overflow: 'hidden', resize: 'none' }}
         ></textarea>
         <p className="date"><strong>Date:</strong> {formatDate(entry.created_at)}</p>
         <button type="submit">Update Entry</button>
