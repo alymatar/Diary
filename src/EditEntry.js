@@ -14,7 +14,7 @@ function EditEntry() {
 
   const fetchEntry = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/diary-entries/${id}`);
+      const response = await axios.get(`https://diarybackend-hmie.onrender.com/api/diary-entries/${id}`);
       setEntry(response.data);
     } catch (error) {
       console.error('Error fetching entry:', error);
@@ -31,7 +31,7 @@ function EditEntry() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/diary-entries/${id}`, entry);
+      await axios.put(`https://diarybackend-hmie.onrender.com/api/diary-entries/${id}`, entry);
       navigate('/'); // Redirect to the main page after editing
     } catch (error) {
       console.error('Error updating entry:', error);
